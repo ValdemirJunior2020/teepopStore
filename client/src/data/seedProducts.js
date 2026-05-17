@@ -1,0 +1,285 @@
+// client/src/data/seedProducts.js
+
+export const TSHIRT_PRICE = 40;
+
+const defaultColors = [
+  { name: "Black", hex: "#111111" },
+  { name: "White", hex: "#ffffff" },
+  { name: "Sand", hex: "#d6c1a3" },
+  { name: "Navy", hex: "#172554" }
+];
+
+const defaultSizes = ["S", "M", "L", "XL", "2XL"];
+
+function buildVariants(productKey, style = "Unisex Tee") {
+  return defaultColors.flatMap((color) =>
+    defaultSizes.map((size) => ({
+      sku: `TEEPOP-${productKey.toUpperCase().replace(/[^A-Z0-9]+/g, "-")}-${color.name
+        .toUpperCase()
+        .replace(/\s+/g, "")}-${size}`,
+      style,
+      color: color.name,
+      colorHex: color.hex,
+      size,
+      price: TSHIRT_PRICE,
+      stock: 20,
+      active: true
+    }))
+  );
+}
+
+export const seedProducts = [
+  {
+    id: "covered-by-grace-tee",
+    name: "Covered By Grace Tee",
+    slug: "covered-by-grace-tee",
+    description:
+      "Premium Christian DTF shirt with a bold Covered By Grace design. Printed in-house by TeePoP.",
+    price: TSHIRT_PRICE,
+    category: "Faith",
+    tags: ["faith", "christian", "grace", "dtf"],
+    active: true,
+    featured: true,
+    sortOrder: 1,
+    mainImageUrl: "/shirts/coveredbygrace.jfif",
+    imageUrl: "/shirts/coveredbygrace.jfif",
+    image: "/shirts/coveredbygrace.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/coveredbygrace.jfif"],
+    rotationImages: ["/shirts/coveredbygrace.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("covered-by-grace", "Unisex Tee")
+  },
+  {
+    id: "dog-prayer-tee",
+    name: "Dog Prayer Tee",
+    slug: "dog-prayer-tee",
+    description:
+      "Funny wholesome DTF shirt for dog lovers with a playful faith-inspired design.",
+    price: TSHIRT_PRICE,
+    category: "Funny",
+    tags: ["funny", "dog", "prayer", "dtf"],
+    active: true,
+    featured: true,
+    sortOrder: 2,
+    mainImageUrl: "/shirts/dog.jfif",
+    imageUrl: "/shirts/dog.jfif",
+    image: "/shirts/dog.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/dog.jfif"],
+    rotationImages: ["/shirts/dog.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("dog-prayer", "Unisex Tee")
+  },
+  {
+    id: "faith-over-fear-tee",
+    name: "Faith Over Fear Tee",
+    slug: "faith-over-fear-tee",
+    description:
+      "Faith Over Fear Christian shirt with a powerful inspirational DTF design.",
+    price: TSHIRT_PRICE,
+    category: "Faith",
+    tags: ["faith", "christian", "fear", "dtf"],
+    active: true,
+    featured: true,
+    sortOrder: 3,
+    mainImageUrl: "/shirts/faithoverfear.jfif",
+    imageUrl: "/shirts/faithoverfear.jfif",
+    image: "/shirts/faithoverfear.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/faithoverfear.jfif"],
+    rotationImages: ["/shirts/faithoverfear.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("faith-over-fear", "Unisex Tee")
+  },
+  {
+    id: "i-paused-my-game-tee",
+    name: "I Paused My Game Tee",
+    slug: "i-paused-my-game-tee",
+    description:
+      "Funny gamer shirt with a bold DTF design for anyone who paused their game to be here.",
+    price: TSHIRT_PRICE,
+    category: "Funny",
+    tags: ["funny", "gaming", "gamer", "dtf"],
+    active: true,
+    featured: true,
+    sortOrder: 4,
+    mainImageUrl: "/shirts/ipaused.jfif",
+    imageUrl: "/shirts/ipaused.jfif",
+    image: "/shirts/ipaused.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/ipaused.jfif"],
+    rotationImages: ["/shirts/ipaused.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("i-paused-my-game", "Unisex Tee")
+  },
+  {
+    id: "jesus-saves-tee",
+    name: "Jesus Saves Tee",
+    slug: "jesus-saves-tee",
+    description:
+      "Bold Jesus Saves Christian DTF shirt with a clean premium streetwear look.",
+    price: TSHIRT_PRICE,
+    category: "Faith",
+    tags: ["faith", "jesus", "christian", "dtf"],
+    active: true,
+    featured: true,
+    sortOrder: 5,
+    mainImageUrl: "/shirts/jesussaves.jfif",
+    imageUrl: "/shirts/jesussaves.jfif",
+    image: "/shirts/jesussaves.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/jesussaves.jfif"],
+    rotationImages: ["/shirts/jesussaves.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("jesus-saves", "Unisex Tee")
+  },
+  {
+    id: "mentally-at-the-beach-tee",
+    name: "Mentally At The Beach Tee",
+    slug: "mentally-at-the-beach-tee",
+    description:
+      "Fun vacation-style DTF shirt for beach lovers and summer energy.",
+    price: TSHIRT_PRICE,
+    category: "Funny",
+    tags: ["funny", "beach", "summer", "dtf"],
+    active: true,
+    featured: false,
+    sortOrder: 6,
+    mainImageUrl: "/shirts/mentally.jfif",
+    imageUrl: "/shirts/mentally.jfif",
+    image: "/shirts/mentally.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/mentally.jfif"],
+    rotationImages: ["/shirts/mentally.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("mentally-at-the-beach", "Unisex Tee")
+  },
+  {
+    id: "powered-by-coffee-and-prayer-tee",
+    name: "Powered By Coffee And Prayer Tee",
+    slug: "powered-by-coffee-and-prayer-tee",
+    description:
+      "Cute and funny DTF shirt for coffee lovers who run on coffee and prayer.",
+    price: TSHIRT_PRICE,
+    category: "Funny",
+    tags: ["funny", "coffee", "prayer", "dtf"],
+    active: true,
+    featured: false,
+    sortOrder: 7,
+    mainImageUrl: "/shirts/powered.jfif",
+    imageUrl: "/shirts/powered.jfif",
+    image: "/shirts/powered.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/powered.jfif"],
+    rotationImages: ["/shirts/powered.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("powered-by-coffee-and-prayer", "Unisex Tee")
+  },
+  {
+    id: "god-is-my-strength-tee",
+    name: "God Is My Strength Tee",
+    slug: "god-is-my-strength-tee",
+    description:
+      "God Is My Strength Christian DTF shirt with a peaceful inspirational design.",
+    price: TSHIRT_PRICE,
+    category: "Faith",
+    tags: ["faith", "strength", "christian", "dtf"],
+    active: true,
+    featured: false,
+    sortOrder: 8,
+
+    // IMPORTANT: this is the working file you tested in the browser
+    mainImageUrl: "/shirts/god-strength.jfif",
+    imageUrl: "/shirts/god-strength.jfif",
+    image: "/shirts/god-strength.jfif",
+
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/god-strength.jfif"],
+    rotationImages: ["/shirts/god-strength.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("god-is-my-strength", "Unisex Tee")
+  },
+  {
+    id: "tacos-love-language-tee",
+    name: "Tacos Love Language Tee",
+    slug: "tacos-love-language-tee",
+    description:
+      "Funny taco lover shirt with a colorful DTF print. Perfect for casual wear.",
+    price: TSHIRT_PRICE,
+    category: "Funny",
+    tags: ["funny", "tacos", "food", "dtf"],
+    active: true,
+    featured: false,
+    sortOrder: 9,
+    mainImageUrl: "/shirts/tacos.jfif",
+    imageUrl: "/shirts/tacos.jfif",
+    image: "/shirts/tacos.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/tacos.jfif"],
+    rotationImages: ["/shirts/tacos.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("tacos-love-language", "Unisex Tee")
+  },
+  {
+    id: "walk-by-faith-tee",
+    name: "Walk By Faith Tee",
+    slug: "walk-by-faith-tee",
+    description:
+      "Walk By Faith Christian DTF shirt with a clean and modern faith design.",
+    price: TSHIRT_PRICE,
+    category: "Faith",
+    tags: ["faith", "christian", "walk by faith", "dtf"],
+    active: true,
+    featured: false,
+    sortOrder: 10,
+    mainImageUrl: "/shirts/walkbyfaith.jfif",
+    imageUrl: "/shirts/walkbyfaith.jfif",
+    image: "/shirts/walkbyfaith.jfif",
+    videoUrl: "",
+    product_video_url: "",
+    gifUrl: "",
+    gif_url: "",
+    galleryImages: ["/shirts/walkbyfaith.jfif"],
+    rotationImages: ["/shirts/walkbyfaith.jfif"],
+    colors: defaultColors,
+    sizes: defaultSizes,
+    variants: buildVariants("walk-by-faith", "Unisex Tee")
+  }
+];

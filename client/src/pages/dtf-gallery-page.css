@@ -1,0 +1,233 @@
+/* client/src/pages/dtf-gallery-page.css */
+
+.dtf-gallery-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 90, 173, 0.15), transparent 34%),
+    radial-gradient(circle at top right, rgba(139, 92, 246, 0.13), transparent 30%),
+    #fff8fb;
+}
+
+.dtf-gallery-hero {
+  padding: 44px 0 24px;
+}
+
+.dtf-eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0 0 12px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.dtf-gallery-hero h1 {
+  max-width: 850px;
+  margin: 0;
+  color: #181018;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.08em;
+}
+
+.dtf-gallery-hero p:not(.dtf-eyebrow) {
+  max-width: 680px;
+  margin: 18px 0 0;
+  color: #675b67;
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 700;
+}
+
+.dtf-api-status {
+  display: inline-flex;
+  margin-top: 18px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: #fff;
+  color: #181018;
+  font-size: 0.82rem;
+  font-weight: 950;
+  box-shadow: 0 10px 26px rgba(17, 17, 17, 0.08);
+}
+
+.dtf-gallery-content {
+  padding: 10px 0 70px;
+}
+
+.dtf-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px 120px;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dtf-toolbar input,
+.dtf-toolbar select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: 999px;
+  background: #fff;
+  padding: 0 16px;
+  color: #181018;
+  font: inherit;
+  font-weight: 800;
+  outline: none;
+}
+
+.dtf-toolbar button,
+.dtf-pick-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff5aad, #8b5cf6);
+  color: #fff;
+  font: inherit;
+  font-weight: 950;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(139, 92, 246, 0.22);
+}
+
+.dtf-count {
+  margin: 0 0 16px;
+  color: #463946;
+  font-weight: 950;
+}
+
+.dtf-notice {
+  padding: 18px;
+  border-radius: 22px;
+  background: #fff;
+  color: #181018;
+  font-weight: 900;
+  box-shadow: 0 14px 36px rgba(17, 17, 17, 0.08);
+}
+
+.dtf-error {
+  color: #b42318;
+}
+
+.dtf-image-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.dtf-image-card {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 14px 38px rgba(17, 17, 17, 0.09);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.dtf-image-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(17, 17, 17, 0.13);
+}
+
+.dtf-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.12;
+  overflow: hidden;
+  background: #f2eef2;
+}
+
+.dtf-image-wrap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.dtf-image-wrap span {
+  position: absolute;
+  left: 9px;
+  top: 9px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #ffdf3f;
+  color: #17120a;
+  font-size: 0.64rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.dtf-image-info {
+  padding: 13px;
+}
+
+.dtf-image-info p {
+  margin: 0 0 5px;
+  color: #ff3c8a;
+  font-size: 0.68rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dtf-image-info h3 {
+  min-height: 40px;
+  margin: 0 0 9px;
+  color: #181018;
+  font-size: 0.95rem;
+  line-height: 1.15;
+}
+
+.dtf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.dtf-tags span {
+  padding: 5px 7px;
+  border-radius: 999px;
+  background: #f5eff8;
+  color: #463946;
+  font-size: 0.66rem;
+  font-weight: 900;
+}
+
+.dtf-pick-btn {
+  width: 100%;
+  min-height: 38px;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 1100px) {
+  .dtf-image-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .dtf-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .dtf-image-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .dtf-image-grid {
+    grid-template-columns: 1fr;
+  }
+}
