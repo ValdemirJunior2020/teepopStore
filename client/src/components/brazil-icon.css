@@ -1,33 +1,28 @@
-/* client/src/pages/shop-page.css */
-
-.product-title-with-icon {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
+/* client/src/components/brazil-icon.css */
 
 .brazil-product-icon {
   width: 22px;
   height: 22px;
   display: inline-block;
   object-fit: contain;
-  flex: 0 0 auto;
+  margin-left: 6px;
+  vertical-align: middle;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.22));
 }
 
 .brazil-product-badge {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 20;
+  right: 8px;
+  top: 8px;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 9px;
+  padding: 5px 8px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.96);
   color: #0b7f32;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 950;
   text-transform: uppercase;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);

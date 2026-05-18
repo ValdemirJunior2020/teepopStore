@@ -2,10 +2,34 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ProductRotateViewer from "../components/ProductRotateViewer";
 import { useCart } from "../context/CartContext";
 import { getProductBySlug } from "../lib/productApi";
 import "./shop-page.css";
+
+function isBrazilProduct(product) {
+  const text = [
+    product?.name,
+    product?.category,
+    product?.description,
+    ...(Array.isArray(product?.tags) ? product.tags : [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return text.includes("brasil") || text.includes("brazil");
+}
+
+function getProductMainImage(product) {
+  return (
+    product?.mainImageUrl ||
+    product?.imageUrl ||
+    product?.image ||
+    product?.galleryImages?.[0] ||
+    product?.rotationImages?.[0] ||
+    "/logoshirt.png"
+  );
+}
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -14,6 +38,7 @@ export default function ProductPage() {
 
   const [product, setProduct] = useState(null);
   const [selectedSku, setSelectedSku] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -30,6 +55,22 @@ export default function ProductPage() {
 
   const price = Number(selectedVariant?.price || product?.price || 40);
 
+  const showBrazilFlag = isBrazilProduct(product);
+
+  const productImages = useMemo(() => {
+    if (!product) return [];
+
+    const images = [
+      product.mainImageUrl,
+      product.imageUrl,
+      product.image,
+      ...(Array.isArray(product.galleryImages) ? product.galleryImages : []),
+      ...(Array.isArray(product.rotationImages) ? product.rotationImages : [])
+    ].filter(Boolean);
+
+    return [...new Set(images)];
+  }, [product]);
+
   useEffect(() => {
     let active = true;
 
@@ -43,6 +84,9 @@ export default function ProductPage() {
         if (!active) return;
 
         setProduct(data);
+
+        const firstImage = getProductMainImage(data);
+        setSelectedImage(firstImage);
       } catch (err) {
         if (active) {
           setError(err.message || "Could not load this product.");
@@ -65,6 +109,7 @@ export default function ProductPage() {
     addToCart({
       ...product,
       price,
+      quantity: 1,
       variantSku: selectedVariant?.sku || "",
       selectedVariant
     });
@@ -87,6 +132,7 @@ export default function ProductPage() {
       <section className="teepop-shop-page">
         <div className="container">
           <div className="notice error-notice">{error || "Product not found."}</div>
+
           <Link className="btn" to="/shop">
             Back to shop
           </Link>
@@ -98,12 +144,40 @@ export default function ProductPage() {
   return (
     <section className="teepop-shop-page product-detail-page">
       <div className="container product-detail-layout">
-        <ProductRotateViewer product={product} />
+        <div className="product-detail-gallery">
+          <div className="product-detail-main-image-wrap">
+            <img
+              src={selectedImage || getProductMainImage(product)}
+              alt={product.name}
+              className="product-detail-main-image"
+              onError={(event) => {
+                event.currentTarget.src = "/logoshirt.png";
+              }}
+            />
+          </div>
+
+          {productImages.length > 1 && (
+            <div className="product-detail-thumbnails">
+              {productImages.map((image) => (
+                <button
+                  key={image}
+                  type="button"
+                  className={image === selectedImage ? "active" : ""}
+                  onClick={() => setSelectedImage(image)}
+                >
+                  <img src={image} alt="" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="product-detail-info">
           <p className="eyebrow">{product.category || "TeePoP DTF"}</p>
 
-          <h1>{product.name}</h1>
+          <h1>
+            {product.name} {showBrazilFlag ? "🇧🇷" : ""}
+          </h1>
 
           <p className="product-detail-description">
             {product.description || "Premium TeePoP DTF shirt printed in-house."}

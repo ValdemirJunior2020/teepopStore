@@ -5,10 +5,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import ProductVideo from "./ProductVideo";
 
+function isBrazilProduct(product) {
+  const text = [
+    product?.name,
+    product?.category,
+    product?.description,
+    ...(Array.isArray(product?.tags) ? product.tags : [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return text.includes("brasil") || text.includes("brazil");
+}
+
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [selectedSku, setSelectedSku] = useState("");
+
+  const showBrazilFlag = isBrazilProduct(product);
 
   const variants = useMemo(() => {
     return Array.isArray(product?.variants)
@@ -44,6 +60,7 @@ export default function ProductCard({ product }) {
     addToCart({
       ...product,
       price,
+      quantity: 1,
       variantSku: selectedVariant?.sku || "",
       selectedVariant
     });
@@ -53,15 +70,13 @@ export default function ProductCard({ product }) {
 
   return (
     <article className="teepop-product-card">
-      <Link to={`/products/${product.slug}`} className="teepop-product-media-link">
-        <ProductVideo product={product} className="teepop-product-media" />
+      <div className="teepop-product-media-box">
+        <Link to={`/products/${product.slug}`} className="teepop-product-media-link">
+          <ProductVideo product={product} className="teepop-product-media" />
 
-        {product.featured && <span className="product-badge">Featured</span>}
-
-        {(product.videoUrl || product.gifUrl || product.rotationImages?.length > 1) && (
-          <span className="product-video-badge">360 Preview</span>
-        )}
-      </Link>
+          {product.featured && <span className="product-badge">Featured</span>}
+        </Link>
+      </div>
 
       <div className="teepop-product-body">
         <div className="teepop-product-topline">
@@ -69,7 +84,9 @@ export default function ProductCard({ product }) {
           <strong>${price.toFixed(2)}</strong>
         </div>
 
-        <h3>{product.name}</h3>
+        <h3>
+          {product.name} {showBrazilFlag ? "🇧🇷" : ""}
+        </h3>
 
         <p className="product-description">
           {product.description || "Premium TeePoP DTF shirt printed in-house."}

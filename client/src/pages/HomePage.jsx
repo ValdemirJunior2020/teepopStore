@@ -1,9 +1,24 @@
 // client/src/pages/HomePage.jsx
 
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { seedProducts } from "../data/seedProducts";
+import { getProducts } from "../lib/productApi";
 import { useLanguage } from "../context/LanguageContext";
 import "./home-page.css";
+
+function isBrazilProduct(product) {
+  const text = [
+    product?.name,
+    product?.category,
+    product?.description,
+    ...(Array.isArray(product?.tags) ? product.tags : [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return text.includes("brasil") || text.includes("brazil");
+}
 
 const homeText = {
   en: {
@@ -24,11 +39,12 @@ const homeText = {
     originalCanName: "Original TeePoP Can",
     pickThisOne: "Pick this one",
     choose: "Choose your shirt",
-    chooseText: "Pick from faith, funny, and custom-ready designs.",
+    chooseText: "Pick from faith, funny, Brazil 2026, and custom-ready designs.",
     print: "We print it",
     printText: "Your shirt is printed using TeePoP’s in-house DTF workflow.",
     ship: "We ship it",
-    shipText: "We quality-check, package, and ship your order from Florida."
+    shipText: "We quality-check, package, and ship your order from Florida.",
+    loading: "Loading TeePoP products..."
   },
   pt: {
     kicker: "Impressão DTF TeePoP",
@@ -48,11 +64,12 @@ const homeText = {
     originalCanName: "Lata Original TeePoP",
     pickThisOne: "Escolher esta",
     choose: "Escolha sua camiseta",
-    chooseText: "Escolha entre designs de fé, engraçados e personalizados.",
+    chooseText: "Escolha entre designs de fé, engraçados, Brasil 2026 e personalizados.",
     print: "Nós imprimimos",
     printText: "Sua camiseta é impressa com o processo DTF interno da TeePoP.",
     ship: "Nós enviamos",
-    shipText: "Nós revisamos, embalamos e enviamos seu pedido da Flórida."
+    shipText: "Nós revisamos, embalamos e enviamos seu pedido da Flórida.",
+    loading: "Carregando produtos TeePoP..."
   },
   es: {
     kicker: "Impresión DTF TeePoP",
@@ -72,18 +89,46 @@ const homeText = {
     originalCanName: "Lata Original TeePoP",
     pickThisOne: "Elegir esta",
     choose: "Elige tu camiseta",
-    chooseText: "Elige entre diseños de fe, divertidos y personalizados.",
+    chooseText: "Elige entre diseños de fe, divertidos, Brasil 2026 y personalizados.",
     print: "La imprimimos",
     printText: "Tu camiseta se imprime con el proceso DTF interno de TeePoP.",
     ship: "La enviamos",
-    shipText: "Revisamos, empacamos y enviamos tu pedido desde Florida."
+    shipText: "Revisamos, empacamos y enviamos tu pedido desde Florida.",
+    loading: "Cargando productos TeePoP..."
   }
 };
 
 export default function HomePage() {
   const { language } = useLanguage();
   const text = homeText[language] || homeText.en;
-  const featuredProducts = seedProducts.slice(0, 10);
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadProducts() {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+
+        if (!active) return;
+
+        setProducts(data);
+      } catch (error) {
+        console.error("Home products failed:", error);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    loadProducts();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <main className="teepop-home">
@@ -131,6 +176,8 @@ export default function HomePage() {
             </Link>
           </div>
 
+          {loading && <p className="home-loading">{text.loading}</p>}
+
           <div className="home-shirt-grid">
             <article className="home-shirt-card">
               <Link to="/shop" className="home-shirt-image-wrap">
@@ -158,35 +205,52 @@ export default function HomePage() {
               </div>
             </article>
 
-            {featuredProducts.map((product) => (
-              <article key={product.id} className="home-shirt-card">
-                <Link
-                  to={`/products/${product.slug}`}
-                  className="home-shirt-image-wrap"
-                >
-                  <img
-                    src={product.mainImageUrl || product.image}
-                    alt={product.name}
-                    className="home-shirt-image"
-                  />
+            {products.map((product) => {
+              const showBrazilIcon = isBrazilProduct(product);
 
-                  {product.featured && <span>{text.featured}</span>}
-                </Link>
-
-                <div className="home-shirt-info">
-                  <p>{product.category}</p>
-                  <h3>{product.name}</h3>
-                  <strong>${Number(product.price || 40).toFixed(2)}</strong>
-
+              return (
+                <article key={product.id || product.slug} className="home-shirt-card">
                   <Link
                     to={`/products/${product.slug}`}
-                    className="home-pick-btn"
+                    className="home-shirt-image-wrap"
                   >
-                    {text.pickThisOne}
+                    <img
+                      src={product.mainImageUrl || product.imageUrl || product.image}
+                      alt={product.name}
+                      className="home-shirt-image"
+                      loading="lazy"
+                      onError={(event) => {
+                        event.currentTarget.src = "/logoshirt.png";
+                      }}
+                    />
+
+                    {product.featured && <span>{text.featured}</span>}
                   </Link>
-                </div>
-              </article>
-            ))}
+
+                  <div className="home-shirt-info">
+                    <p>{product.category}</p>
+
+                    <h3>
+                      {product.name}
+                      {showBrazilIcon && (
+                        <span style={{ marginLeft: "6px", fontSize: "1.1rem" }}>
+                          🇧🇷
+                        </span>
+                      )}
+                    </h3>
+
+                    <strong>${Number(product.price || 40).toFixed(2)}</strong>
+
+                    <Link
+                      to={`/products/${product.slug}`}
+                      className="home-pick-btn"
+                    >
+                      {text.pickThisOne}
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
