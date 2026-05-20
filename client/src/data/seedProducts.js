@@ -405,4 +405,90 @@ const brasilCollectionProducts = [
   })
 ];
 
-export const seedProducts = [...originalProducts, ...brasilCollectionProducts];
+const modelosFolder = "/shirts/modelos";
+
+const modeloProducts = [
+  createProduct({
+    id: "teepop-model-tee-01",
+    name: "TeePoP Model Tee 01",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/3fb8a4cd-555b-48b5-861f-ae7ce9b550fd.jfif`,
+    featured: false,
+    sortOrder: 30
+  }),
+  createProduct({
+    id: "teepop-model-tee-02",
+    name: "TeePoP Model Tee 02",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/5a23247e-b78f-481b-bf0d-60b6599d1c9a.jfif`,
+    featured: false,
+    sortOrder: 31
+  }),
+  createProduct({
+    id: "teepop-model-tee-03",
+    name: "TeePoP Model Tee 03",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/61ecd618-757d-4315-8862-730b8e2d3152.jfif`,
+    featured: false,
+    sortOrder: 32
+  }),
+  createProduct({
+    id: "teepop-model-tee-04",
+    name: "TeePoP Model Tee 04",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/4852bf37-87b2-4ee7-bf6c-f20f5d1d4430.jfif`,
+    featured: false,
+    sortOrder: 33
+  }),
+  createProduct({
+    id: "teepop-model-tee-05",
+    name: "TeePoP Model Tee 05",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/a785726e-0a00-495f-88b2-b1552732cf61.jfif`,
+    featured: false,
+    sortOrder: 34
+  }),
+  createProduct({
+    id: "teepop-model-tee-06",
+    name: "TeePoP Model Tee 06",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/d7270cb4-d4b6-4bf8-ad66-783cd2ae5973.jfif`,
+    featured: false,
+    sortOrder: 35
+  }),
+  createProduct({
+    id: "teepop-model-tee-07",
+    name: "TeePoP Model Tee 07",
+    description:
+      "Premium TeePoP DTF model shirt preview with lifestyle product photography.",
+    category: "Models",
+    tags: ["models", "model", "dtf", "teepop", "shirt"],
+    image: `${modelosFolder}/f1a9c286-0da3-4b42-8df1-c02a7ab1d3f9.jfif`,
+    featured: false,
+    sortOrder: 36
+  })
+];
+
+export const seedProducts = [
+  ...originalProducts,
+  ...brasilCollectionProducts,
+  ...modeloProducts
+];

@@ -88,9 +88,9 @@ export default function Navbar() {
               Home
             </NavLink>
 
-            <a href="/#shop" className="cw-nav-link">
-              Shop
-            </a>
+            <NavLink to="/shop" className="cw-nav-link">
+  Shop
+</NavLink>
 
             <a href="/#community" className="cw-nav-link">
               Community
